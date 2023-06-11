@@ -1,0 +1,20 @@
+lockfileVersion: '6.0'
+
+dependencies:
+  minecraft-server-util:
+    specifier: ^5.4.4
+    version: 5.4.4
+
+packages:
+
+  /minecraft-motd-util@1.1.12:
+    resolution: {integrity: sha512-5TuTRjrRupSTruea0nRC37r0FdhkS1O4wIJKAYfwJRCQd/X4Zyl/dVIs96h9UVW6N8jhIuz9pNkrDsqyN7VBdA==}
+    dev: false
+
+  /minecraft-server-util@5.4.4:
+    resolution: {integrity: sha512-uaE0N9PHPtJudi8BlCvKDD9K30w23ZpeS1I53wEJo9nX0HSmg5qFvwj8gMG0CYCUwWH/g5hjKaGAwXXN/vhMJw==}
+    engines: {node: '>=10.0.0'}
+    deprecated: no longer maintained, please use https://mcstatus.io
+    dependencies:
+      minecraft-motd-util: 1.1.12
+    dev: false
