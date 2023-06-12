@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "minecraft-server-util": "^5.4.4"
+    "fastify": "^4.18.0",
+    "rcon-client": "^4.2.3"
   }
 }
