@@ -13,6 +13,11 @@
     "discord.js": "^14.11.0",
     "eslint": "^8.42.0",
     "ping": "^0.4.4",
-    "wol": "^1.0.7"
+    "rcon-client": "^4.2.3",
+    "wol": "^1.0.7",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "prettier": "2.8.8"
   }
 }

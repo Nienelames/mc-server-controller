@@ -10,9 +10,20 @@ dependencies:
   ping:
     specifier: ^0.4.4
     version: 0.4.4
+  rcon-client:
+    specifier: ^4.2.3
+    version: 4.2.3
   wol:
     specifier: ^1.0.7
     version: 1.0.7
+  ws:
+    specifier: ^8.13.0
+    version: 8.13.0
+
+devDependencies:
+  prettier:
+    specifier: 2.8.8
+    version: 2.8.8
 
 packages:
 
@@ -707,6 +718,12 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: false
 
+  /prettier@2.8.8:
+    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
   /punycode@2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
@@ -714,6 +731,12 @@ packages:
 
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+    dev: false
+
+  /rcon-client@4.2.3:
+    resolution: {integrity: sha512-g+DEzI3O0Nl4Y3mPp6DHhSpYeiv+wTq8iKxCumFGO0/SMCsdNfx9bpT5RyHa7phR5dvspKfQK0ZYJp1YCtXNng==}
+    dependencies:
+      typed-emitter: 0.1.0
     dev: false
 
   /readable-stream@3.6.2:
@@ -839,6 +862,10 @@ packages:
   /type-fest@0.20.2:
     resolution: {integrity: sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==}
     engines: {node: '>=10'}
+    dev: false
+
+  /typed-emitter@0.1.0:
+    resolution: {integrity: sha512-Tfay0l6gJMP5rkil8CzGbLthukn+9BN/VXWcABVFPjOoelJ+koW8BuPZYk+h/L+lEeIp1fSzVRiWRPIjKVjPdg==}
     dev: false
 
   /undici@5.22.1:
