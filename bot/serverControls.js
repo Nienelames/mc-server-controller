@@ -15,18 +15,7 @@ module.exports = {
         else hostEvents.on("hostConnected", () => resolve());
       });
     }),
-  startServer: () =>
-    new Promise(async (resolve, reject) => {
-      try {
-        await fetch("http://192.168.3.61:3000/start-server");
-      } catch (error) {
-        reject(error);
-
-        return;
-      }
-
-      state.hostWs.on("server-on", () => resolve());
-    }),
+  startServer: async () => await fetch("http://192.168.3.61:3000/start-server"),
   isAliveServer: async () =>
     new Promise(async (resolve, reject) => {
       try {

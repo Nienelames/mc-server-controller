@@ -52,11 +52,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
-        content: `There was an error while executing this command\n:${error}`,
+        content: `There was an error while executing this command\n:${error.message}`,
       });
     } else {
       await interaction.reply({
-        content: `There was an error while executing this command!\n${error}`,
+        content: `There was an error while executing this command!\n${error.message}`,
       });
     }
   }
@@ -64,29 +64,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 hostEvents.on("hostConnected", () => {
   state.hostWs.on("message", (message) => {
-    switch (message.toString()) {
-      case "server-off":
-        client.user.setActivity("Idling");
-        break;
-      case "server-on":
-        client.user.setActivity("Hosting Enigmatica 6");
-        break;
-    }
+    message.toString() === "server-off" && client.user.setActivity("Idling");
   });
-  state.hostWs.on("close", () => {
-    client.user.setPresence("Idling");
-  });
+  state.hostWs.on("close", () => client.user.setActivity("Idling"));
 });
-
-// const { Rcon } = require("rcon-client");
-//
-// const test = async () => {
-//   const rcon = new Rcon({ host: "172.23.85.11", port: 25575, password: "e" });
-//
-//   await rcon.connect();
-//   const response = await rcon.send("list");
-//   console.log(response);
-//   rcon.end();
-// };
-//
-// test();
