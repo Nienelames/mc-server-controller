@@ -1,5 +1,11 @@
 const { REST, Routes } = require("discord.js");
-const { Client, Events, GatewayIntentBits, Collection } = require("discord.js");
+const {
+  Client,
+  Events,
+  GatewayIntentBits,
+  Collection,
+  ActivityType,
+} = require("discord.js");
 const { token, clientId } = require("./config.json");
 const { state, hostEvents } = require("./webSocket");
 const fs = require("node:fs");
@@ -8,17 +14,20 @@ const path = require("node:path");
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.once(Events.ClientReady, (client) => {
   console.log(`Ready! Logged in as ${client.user.tag}`);
-  client.user.setActivity("Idling");
+  client.user.setActivity("Binqilin 🥶 🍨");
 });
 
 client.login(token);
 
+// Temporary hard-coding
 client.commands = new Collection();
 client.commands.set("start-server", require("./commands/startServer.js"));
 client.commands.set("stop-server", require("./commands/stopServer.js"));
+client.commands.set("run-command", require("./commands/runCommand.js"));
 const commands = [
   require("./commands/startServer.js").data.toJSON(),
   require("./commands/stopServer.js").data.toJSON(),
+  require("./commands/runCommand.js").data.toJSON(),
 ];
 
 // Construct and prepare an instance of the REST module
@@ -68,7 +77,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 hostEvents.on("hostConnected", () => {
   state.hostWs.on("message", (message) => {
-    message.toString() === "server-off" && client.user.setActivity("Idling");
+    message.toString() === "server-off" &&
+      client.user.setActivity("Binqilin 🥶 🍨");
   });
-  state.hostWs.on("close", () => client.user.setActivity("Idling"));
+  state.hostWs.on("close", () => client.user.setActivity("Binqilin 🥶 🍨"));
 });

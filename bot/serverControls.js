@@ -35,4 +35,11 @@ module.exports = {
       }
     }),
   stopServer: async () => await fetch("http://192.168.3.61:3000/stop-server"),
+  runCommand: async (command) => {
+    await rcon.connect();
+    const response = await rcon.send(command);
+    await rcon.end();
+
+    return response;
+  },
 };
