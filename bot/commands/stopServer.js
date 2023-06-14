@@ -7,13 +7,13 @@ module.exports = {
     .setDescription("Stops the Enigmatica 6 server"),
   async execute(interaction) {
     if (!(await isAliveServer())) {
-      interaction.reply("Server not running!");
+      interaction.reply("Server not running :x:");
 
       return;
     }
 
     await interaction.reply("Stopping server :hourglass:");
     await stopServer();
-    await interaction.editReply("Server stopped!");
+    await interaction.editReply("Server stopped :white_check_mark:");
   },
 };

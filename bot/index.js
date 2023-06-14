@@ -56,11 +56,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
-        content: `There was an error while executing this command\n:${error.message}`,
+        content: `There was an error while executing this command :x: \n${error.message}`,
       });
     } else {
       await interaction.reply({
-        content: `There was an error while executing this command!\n${error.message}`,
+        content: `There was an error while executing this command! :x: \n${error.message}`,
       });
     }
   }

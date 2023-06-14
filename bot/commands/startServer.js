@@ -12,7 +12,7 @@ module.exports = {
     .setDescription("Starts the Enigmatica 6 server"),
   async execute(interaction) {
     if (await isAliveServer()) {
-      interaction.reply("Server is already running");
+      interaction.reply("Server is already running :x:");
 
       return;
     }
@@ -20,7 +20,7 @@ module.exports = {
     if (isAliveHost()) {
       await interaction.reply("Starting server :hourglass:");
       await startServer();
-      await interaction.editReply("Server running!");
+      await interaction.editReply("Server running :white_check_mark:");
       interaction.client.user.setActivity("Hosting Enigmatica 6");
 
       return;
@@ -28,11 +28,11 @@ module.exports = {
 
     await interaction.reply("Powering on host :hourglass:");
     await powerOnHost();
-    await interaction.editReply("Host powered on!");
+    await interaction.editReply("Host powered on :white_check_mark:");
 
     await interaction.editReply("Starting server :hourglass:");
     await startServer();
-    await interaction.editReply("Server running!");
+    await interaction.editReply("Server running :white_check_mark:");
     interaction.client.user.setActivity("Hostring Enigmatica 6");
   },
 };
