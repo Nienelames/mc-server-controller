@@ -21,7 +21,7 @@ module.exports = {
       await interaction.reply("Starting server :hourglass:");
       await startServer();
       await interaction.editReply("Server running :white_check_mark:");
-      interaction.client.user.setActivity("Hosting Enigmatica 6");
+      interaction.client.user.setActivity("Enigmatica 6");
 
       return;
     }
@@ -33,6 +33,6 @@ module.exports = {
     await interaction.editReply("Starting server :hourglass:");
     await startServer();
     await interaction.editReply("Server running :white_check_mark:");
-    interaction.client.user.setActivity("Hostring Enigmatica 6");
+    interaction.client.user.setActivity("Enigmatica 6");
   },
 };
