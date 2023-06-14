@@ -17,11 +17,18 @@ module.exports = {
 
       return;
     }
+
     await interaction.reply("Running command :hourglass:");
     const command = interaction.options.getString("command");
     const response = await runCommand(command);
+    const messages = [
+      ...Array(Math.ceil(response.length / 2000)).keys(),
+    ].flatMap((index) => response.slice(index * 2000, (index + 1) * 2000));
     await interaction.editReply(
-      `Command executed successfully :white_check_mark:\n${response}`
+      "Command executed successfully :white_check_mark:"
     );
+    for (const message of messages) {
+      await interaction.followUp(message);
+    }
   },
 };
