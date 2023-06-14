@@ -34,4 +34,5 @@ module.exports = {
         reject(error);
       }
     }),
+  stopServer: async () => await fetch("http://192.168.3.61:3000/stop-server"),
 };

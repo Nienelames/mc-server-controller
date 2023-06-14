@@ -20,7 +20,7 @@ module.exports = {
     if (isAliveHost()) {
       await interaction.reply("Starting server :hourglass:");
       await startServer();
-      await interaction.followUp("Server running!");
+      await interaction.editReply("Server running!");
       interaction.client.user.setActivity("Hosting Enigmatica 6");
 
       return;
@@ -28,11 +28,11 @@ module.exports = {
 
     await interaction.reply("Powering on host :hourglass:");
     await powerOnHost();
-    await interaction.followUp("Hosed powered on!");
+    await interaction.editReply("Host powered on!");
 
-    await interaction.followUp("Starting server :hourglass:");
+    await interaction.editReply("Starting server :hourglass:");
     await startServer();
-    await interaction.followUp("Server running!");
+    await interaction.editReply("Server running!");
     interaction.client.user.setActivity("Hostring Enigmatica 6");
   },
 };

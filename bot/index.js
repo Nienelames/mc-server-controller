@@ -15,7 +15,11 @@ client.login(token);
 
 client.commands = new Collection();
 client.commands.set("start-server", require("./commands/startServer.js"));
-const commands = [require("./commands/startServer.js").data.toJSON()];
+client.commands.set("stop-server", require("./commands/stopServer.js"));
+const commands = [
+  require("./commands/startServer.js").data.toJSON(),
+  require("./commands/stopServer.js").data.toJSON(),
+];
 
 // Construct and prepare an instance of the REST module
 const rest = new REST().setToken(token);

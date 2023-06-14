@@ -51,7 +51,8 @@ fastify.get("/stop-server", async (request, reply) => {
   await exec(
     'tasklist | rg -m1 "firefox.exe|Discord.exe"',
     (error, stdout, stderr) =>
-      stdout && exec(`powershell.exe -File ${path.resolve("./shutdown.ps1")}`)
+      stdout.toString() === "" &&
+      exec(`powershell.exe -File ${path.resolve("./shutdown.ps1")}`)
   );
 
   reply.code(200).send("Server shut down successfully");
