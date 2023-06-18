@@ -11,14 +11,14 @@ module.exports = {
     .setName("start-server")
     .setDescription("Starts the Enigmatica 6 server"),
   async execute(interaction) {
-    if (await isAliveServer()) {
-      interaction.reply("Server is already running :x:");
+    await interaction.reply("Executing :hourglass:");
 
-      return;
-    }
+    if (!isAliveHost()) {
+      await interaction.editReply("Powering on host :hourglass:");
+      await powerOnHost();
+      await interaction.editReply("Host powered on :white_check_mark:");
 
-    if (isAliveHost()) {
-      await interaction.reply("Starting server :hourglass:");
+      await interaction.editReply("Starting server :hourglass:");
       await startServer();
       await interaction.editReply("Server running :white_check_mark:");
       interaction.client.user.setActivity("Enigmatica 6");
@@ -26,13 +26,15 @@ module.exports = {
       return;
     }
 
-    await interaction.reply("Powering on host :hourglass:");
-    await powerOnHost();
-    await interaction.editReply("Host powered on :white_check_mark:");
+    if (!(await isAliveServer())) {
+      await interaction.editReply("Starting server :hourglass:");
+      await startServer();
+      await interaction.editReply("Server running :white_check_mark:");
+      interaction.client.user.setActivity("Enigmatica 6");
 
-    await interaction.editReply("Starting server :hourglass:");
-    await startServer();
-    await interaction.editReply("Server running :white_check_mark:");
-    interaction.client.user.setActivity("Enigmatica 6");
+      return;
+    }
+
+    await interaction.reply("Server already running :x:");
   },
 };
