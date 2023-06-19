@@ -44,11 +44,12 @@ const stopServer = () =>
   new Promise((resolve, reject) => {
     serverProcess.stdin.write("/stop\n");
 
-    serverProcess.stdout.on(
-      "data",
-      (data) =>
-        data.toString().includes("Press any key to continue") && resolve()
-    );
+    serverProcess.stdout.on("data", (data) => {
+      if (data.toString().includes("Press any key to continue")) {
+        ws.send("server-off");
+        resolve();
+      }
+    });
 
     // Hacky way to see if I'm using the PC
     exec(
