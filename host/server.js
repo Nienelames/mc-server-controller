@@ -26,21 +26,8 @@ const initServerProcess = () => {
       "get",
       "ProcessId",
     ]);
-
-    findChildProcesses.stdout.on("data", (data) => {
-      const output = data.toString();
-      const lines = output.split("\n").filter((line) => line.trim() !== "");
-
-      // Remove the header line and empty last line
-      lines.shift();
-      lines.pop();
-
-      const childPids = lines.map((line) => line.trim());
-      console.log(`Child processes: ${childPids.join(", ")}`);
-    });
   });
-  // serverProcess.stdout.on("data", (data) => console.log(data.toString()));
-  // serverProcess.stderr.on("data", (data) => console.log(data.toString()));
+
   serverProcess.on(
     "close",
     () => ws.readyState === WebSocket.OPEN && ws.send("server-off")
