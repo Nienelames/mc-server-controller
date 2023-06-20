@@ -1,6 +1,5 @@
 const fastify = require("fastify")({ logger: true });
-const { exec } = require("child_process");
-const { startServer, stopServer } = require("./server");
+const { startServer, stopServer, forceRestart } = require("./server");
 
 fastify.get("/start-server", async (request, reply) => {
   try {
@@ -18,7 +17,17 @@ fastify.get("/stop-server", async (request, reply) => {
 
     reply.code(200).send("Server shut down successfully");
   } catch (error) {
-    reply.code(500).send(error);
+    reply.code(500).send(error.message);
+  }
+});
+
+fastify.get("/force-restart", async (request, reply) => {
+  try {
+    await forceRestart();
+
+    reply.code(200).send("Server restart successful");
+  } catch (error) {
+    reply.code(500).send(error.message);
   }
 });
 

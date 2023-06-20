@@ -2,30 +2,58 @@ const { spawn, exec } = require("child_process");
 const path = require("path");
 const WebSocket = require("ws");
 
-const serverProcess = spawn("cmd.exe", [
-  "/c",
-  "cd",
-  path.resolve(__dirname, "enigmatica6"),
-  "&&",
-  "start-server.bat",
-]);
-const ws = new WebSocket("ws://192.168.3.60:1987");
+let serverProcess;
+let childIds = [];
+const ws = new WebSocket("ws://192.168.3.61:1987");
 
-serverProcess.stdout.on("data", (data) => console.log(data.toString()));
-serverProcess.stderr.on("data", (data) => console.log(data.toString()));
+const initServerProcess = () => {
+  serverProcess = spawn("cmd.exe", [
+    "/c",
+    "cd",
+    path.resolve(__dirname, "enigmatica6"),
+    "&&",
+    "java",
+    "-jar",
+    "serverstarter-2.4.0.jar",
+  ]);
 
-serverProcess.on(
-  "close",
-  () => ws.readyState === WebSocket.OPEN && ws.send("server-off")
-);
-serverProcess.on("error", (error) => console.error(error));
+  serverProcess.on("spawn", (subprocess) => {
+    console.log("new process spawned", subprocess);
+    const findChildProcesses = spawn("wmic", [
+      "process",
+      "where",
+      `(ParentProcessId=${serverProcess.pid})`,
+      "get",
+      "ProcessId",
+    ]);
+
+    findChildProcesses.stdout.on("data", (data) => {
+      const output = data.toString();
+      const lines = output.split("\n").filter((line) => line.trim() !== "");
+
+      // Remove the header line and empty last line
+      lines.shift();
+      lines.pop();
+
+      const childPids = lines.map((line) => line.trim());
+      console.log(`Child processes: ${childPids.join(", ")}`);
+    });
+  });
+  // serverProcess.stdout.on("data", (data) => console.log(data.toString()));
+  // serverProcess.stderr.on("data", (data) => console.log(data.toString()));
+  serverProcess.on(
+    "close",
+    () => ws.readyState === WebSocket.OPEN && ws.send("server-off")
+  );
+  serverProcess.on("error", (error) => console.error(error));
+};
 
 const startServer = () =>
   new Promise((resolve, reject) => {
-    serverProcess.stdin.write("e");
+    if (!serverProcess || serverProcess.killed) initServerProcess();
 
     serverProcess.on("error", (error) => {
-      reject(`Failed to start server: ${error.message}`);
+      reject(new Error(error.message));
     });
 
     serverProcess.stdout.on("data", (data) => {
@@ -55,7 +83,7 @@ const stopServer = () =>
     exec(
       'tasklist | rg -m1 "firefox.exe|Discord.exe"',
       (error, stdout, stderr) => {
-        if (error) reject(error.message);
+        if (error) reject(error);
 
         if (!stdout.toString())
           exec(
@@ -65,7 +93,16 @@ const stopServer = () =>
     );
   });
 
+const forceRestart = async () => {
+  if (!serverProcess) throw new Error("Server not initialized");
+
+  serverProcess.kill();
+
+  await startServer();
+};
+
 module.exports = {
   startServer,
   stopServer,
+  forceRestart,
 };

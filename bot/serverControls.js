@@ -48,4 +48,6 @@ module.exports = {
 
     return response;
   },
+  forceRestart: () =>
+    withTimeout(fetch("http://192.168.3.61:3000/force-restart"), 130),
 };

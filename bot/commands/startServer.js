@@ -35,6 +35,6 @@ module.exports = {
       return;
     }
 
-    await interaction.reply("Server already running :x:");
+    await interaction.editReply("Server already running :x:");
   },
 };

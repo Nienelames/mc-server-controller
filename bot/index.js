@@ -24,10 +24,12 @@ client.commands = new Collection();
 client.commands.set("start-server", require("./commands/startServer.js"));
 client.commands.set("stop-server", require("./commands/stopServer.js"));
 client.commands.set("run-command", require("./commands/runCommand.js"));
+client.commands.set("force-restart", require("./commands/forceRestart.js"));
 const commands = [
   require("./commands/startServer.js").data.toJSON(),
   require("./commands/stopServer.js").data.toJSON(),
   require("./commands/runCommand.js").data.toJSON(),
+  require("./commands/forceRestart.js").data.toJSON(),
 ];
 
 // Construct and prepare an instance of the REST module
